@@ -6,6 +6,8 @@ services:
     volumes:
       - pg_data:/var/lib/postgresql/data
       - ./config/trombi.sql:/docker-entrypoint-initdb.d/trombi.sql
+    ports:
+      - "5432:5432"
     environment:
       POSTGRES_USER: username
       POSTGRES_PASSWORD: password
