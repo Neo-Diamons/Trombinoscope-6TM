@@ -16,6 +16,8 @@ services:
       context: ./server
     ports:
       - "8080:8080"
+    volumes:
+      - ./server:/server
     depends_on:
       - db
 
@@ -24,6 +26,8 @@ services:
       context: ./clientapp
     ports:
       - "3000:3000"
+    volumes:
+      - ./clientapp:/clientapp
     depends_on:
       - db
 
