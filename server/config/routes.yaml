@@ -4,7 +4,12 @@ controllers:
         namespace: App\Controller
     type: attribute
 
-customers:
-    path: /api/v1/customers
-    controller: App\Controller\CustomerController::index
+peoples:
+    path: /api/v1/peoples
+    controller: App\Controller\PeopleController::index
+    methods: [GET]
+
+peoples_show:
+    path: /api/v1/peoples/{id}
+    controller: App\Controller\PeopleController::show
     methods: [GET]
