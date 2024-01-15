@@ -1,0 +1,31 @@
+version: '3'
+
+services:
+  db:
+    image: postgres
+    volumes:
+      - pg_data:/var/lib/postgresql/data
+      - ./config/trombi.sql:/docker-entrypoint-initdb.d/trombi.sql
+    environment:
+      POSTGRES_USER: username
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: trombiDb
+
+  php-app:
+    build:
+      context: ./server
+    ports:
+      - "8080:8080"
+    depends_on:
+      - db
+
+  react-app:
+    build:
+      context: ./clientapp
+    ports:
+      - "3000:3000"
+    depends_on:
+      - db
+
+volumes:
+  pg_data:
