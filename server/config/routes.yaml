@@ -6,10 +6,20 @@ controllers:
 
 peoples:
     path: /api/v1/peoples
-    controller: App\Controller\PeopleController::index
+    controller: App\Controller\PeoplesController::index
     methods: [GET]
 
 peoples_show:
-    path: /api/v1/peoples/{id}
-    controller: App\Controller\PeopleController::show
+    path: /api/v1/peoples/{name}
+    controller: App\Controller\PeoplesController::show
+    methods: [GET]
+
+users:
+    path: /api/v1/users
+    controller: App\Controller\UsersController::index
+    methods: [GET]
+
+users_show:
+    path: /api/v1/users/{username}
+    controller: App\Controller\UsersController::show
     methods: [GET]

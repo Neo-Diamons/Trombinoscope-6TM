@@ -21,9 +21,20 @@ class UsersRepository extends ServiceEntityRepository
         parent::__construct($registry, Users::class);
     }
 
-//    /**
-//     * @return Users[] Returns an array of Users objects
-//     */
+   /**
+    * @return Users[] Returns an array of Users objects
+    */
+
+    public function findOneByName($value): ?Users
+    {
+        return $this->createQueryBuilder('c')
+            ->andWhere('c.username = :username')
+            ->setParameter('username', $value)
+            ->getQuery()
+            ->getOneOrNullResult()
+        ;
+    }
+
 //    public function findByExampleField($value): array
 //    {
 //        return $this->createQueryBuilder('u')

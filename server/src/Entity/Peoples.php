@@ -2,13 +2,13 @@
 
 namespace App\Entity;
 
-use App\Repository\PeopleRepository;
+use App\Repository\PeoplesRepository;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @ORM\Table(name="users", schema="trombiDB")
  */
-#[ORM\Entity(repositoryClass: PeopleRepository::class)]
+#[ORM\Entity(repositoryClass: PeoplesRepository::class)]
 class Peoples
 {
     #[ORM\Id]
@@ -32,6 +32,19 @@ class Peoples
 
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $photo_pro_url = null;
+
+    public function toJson($people): Array
+    {
+        return [
+            'name' => $people->getName(),
+            'firstname' => $people->getFirstname(),
+            'job' => $people->getJob(),
+            'equip' => $people->getEquip(),
+            'agency' => $people->getAgency(),
+            'photo_fun_url' => $people->getPhotoFunUrl(),
+            'photo_pro_url' => $people->getPhotoProUrl(),
+        ];
+    }
 
     public function getName(): ?string
     {

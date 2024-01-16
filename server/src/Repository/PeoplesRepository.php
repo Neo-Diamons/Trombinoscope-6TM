@@ -14,17 +14,32 @@ use Doctrine\Persistence\ManagerRegistry;
  * @method Peoples[]    findAll()
  * @method Peoples[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
-class PeopleRepository extends ServiceEntityRepository
+class PeoplesRepository extends ServiceEntityRepository
 {
     public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, Peoples::class);
     }
 
-
    /**
     * @return Peoples[] Returns an array of Peoples objects
     */
+
+   public function findOneByName($value): ?Peoples
+   {
+        // console.log($this->createQueryBuilder('c')
+        // ->andWhere('c.name = :name')
+        // ->setParameter('name', $value)
+        // ->getQuery()
+        // ->getOneOrNullResult());
+
+       return $this->createQueryBuilder('c')
+           ->andWhere('c.name = :name')
+           ->setParameter('name', $value)
+           ->getQuery()
+           ->getOneOrNullResult()
+       ;
+   }
 
 //    /**
 //     * @return Peoples[] Returns an array of Peoples objects

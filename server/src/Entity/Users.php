@@ -15,6 +15,14 @@ class Users
     #[ORM\Column(length: 255)]
     private ?string $password = null;
 
+    public function toJson($user): Array
+    {
+        return [
+            'username' => $user->getUsername(),
+            'password' => $user->getPassword()
+        ];
+    }
+
     public function getId(): ?int
     {
         return $this->id;
