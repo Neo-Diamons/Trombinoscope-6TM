@@ -25,17 +25,22 @@ class PeoplesRepository extends ServiceEntityRepository
     * @return Peoples[] Returns an array of Peoples objects
     */
 
-   public function findOneByName($value): ?Peoples
+   public function findOneByName($name): ?Peoples
    {
-        // console.log($this->createQueryBuilder('c')
-        // ->andWhere('c.name = :name')
-        // ->setParameter('name', $value)
-        // ->getQuery()
-        // ->getOneOrNullResult());
-
        return $this->createQueryBuilder('c')
            ->andWhere('c.name = :name')
-           ->setParameter('name', $value)
+           ->setParameter('name', $name)
+           ->getQuery()
+           ->getOneOrNullResult()
+       ;
+   }
+
+   public function findByKey($name, $firstname): ?Peoples
+   {
+       return $this->createQueryBuilder('c')
+           ->andWhere('c.name = :name and c.firstname = :firstname  ')
+           ->setParameter('name', $name)
+           ->setParameter('firstname', $firstname)
            ->getQuery()
            ->getOneOrNullResult()
        ;
