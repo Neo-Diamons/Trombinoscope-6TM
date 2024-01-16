@@ -13,7 +13,10 @@ RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local
 
 # install PHP extensions
 RUN apt-get update && apt-get install -y \
-    git
+    git \
+    libpq-dev
+
+RUN docker-php-ext-install pdo pdo_pgsql
 
 # Install dependencies
 ENV COMPOSER_ALLOW_SUPERUSER=1
