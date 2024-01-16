@@ -26,7 +26,7 @@ The secure back office, built on the PHP Symfony framework, serves as a dedicate
 
 This project leverages cutting-edge technologies to deliver a robust and user-friendly solution tailored for 6TM:
 
-- **Frontend:** HTML5, CSS3, JavaScript
+- **Frontend:** ReactJS
 - **Backend:** PHP Symfony
 - **Database:** postgresql
 
