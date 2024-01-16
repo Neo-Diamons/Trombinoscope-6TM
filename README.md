@@ -6,11 +6,11 @@ Welcome to the 6TM Organization Chart project, a comprehensive solution designed
 
 ## Contributors
 
-- **Florian Trillaud**
-- **Jean-Yanis Jeffroy**
-- **Julien Bregent**
-- **Romain Hure**
-- **Yann Morvan**
+- [Florian Trillaud](https://github.com/KSan51)
+- [Jean-Yanis Jeffroy](https://github.com/neo-jgrec)
+- [Julien Bregent](https://github.com/Fenriir42)
+- [Romain Hure](https://github.com/Neo-Diamons)
+- [Yann Morvan](https://github.com/YannMorvan)
 
 ## Features
 
@@ -52,10 +52,10 @@ We welcome contributions to enhance and improve the 6TM Organization Chart proje
 
 For any inquiries or support related to this project, feel free to contact the contributors:
 
-- Florian Trillaud: [Provide contact information]
-- Jean-Yanis Jeffroy: [Provide contact information]
+- Florian Trillaud: [florian.trillaud@epitech.eu](mailto:florian.trillaud@epitech.eu)
+- Jean-Yanis Jeffroy: [jean-yanis.jeffroy@epitech.eu](mailto:jean-yanis.jeffroy@epitech.eu)
 - Julien Bregent: [julien.bregent@epitech.eu](mailto:julien.bregent@epitech.eu)
-- Romain Hure: [Provide contact information]
-- Yann Morvan: [Provide contact information]
+- Romain Hure: [romain.hure@epitech.eu](mailto:romain.hure@epitech.eu)
+- Yann Morvan: [yann.morvan@epitech.eu](mailto:yann.morvan@epitech.eu)
 
 Thank you for choosing the 6TM Organization Chart with Photographs project! We trust it will serve 6TM and its employees exceptionally well.
