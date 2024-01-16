@@ -10,7 +10,7 @@ peoples:
     methods: [GET]
 
 peoples_show:
-    path: /api/v1/peoples/{name}
+    path: /api/v1/people/{name}
     controller: App\Controller\PeoplesController::show
     methods: [GET]
 
@@ -20,6 +20,16 @@ users:
     methods: [GET]
 
 users_show:
-    path: /api/v1/users/{username}
+    path: /api/v1/user/{username}
     controller: App\Controller\UsersController::show
+    methods: [GET]
+
+users_create:
+    path: /api/v1/user/create
+    controller: App\Controller\UsersController::create
+    methods: [POST]
+
+users_login:
+    path: /api/v1/user/login
+    controller: App\Controller\UsersController::login
     methods: [GET]

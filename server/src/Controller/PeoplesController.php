@@ -26,6 +26,10 @@ class PeoplesController extends AbstractController
     public function show(PeoplesRepository $peoplesRepository, string $username): JsonResponse
     {
         $people = $peoplesRepository->findOneByName($username);
+        if ($people == null)
+            return $this->json([
+                'error' => 'username not found'
+            ], 404);
 
         return $this->json($people);
     }
