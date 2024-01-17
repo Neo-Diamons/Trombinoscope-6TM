@@ -26,8 +26,8 @@ final class Version20240116081020 extends AbstractMigration
         $this->addSql('INSERT INTO peoples SELECT * FROM trombidb.peoples');
         $this->addSql('INSERT INTO users SELECT * FROM trombidb.users');
         
-        // $this->addSql('DROP TABLE trombidb.peoples');
-        // $this->addSql('DROP TABLE trombidb.users');
+        $this->addSql('DROP TABLE trombidb.peoples');
+        $this->addSql('DROP TABLE trombidb.users');
     }
 
     public function down(Schema $schema): void
@@ -41,7 +41,7 @@ final class Version20240116081020 extends AbstractMigration
         // $this->addSql('INSERT INTO peoples SELECT * FROM trombidb.peoples');
         // $this->addSql('INSERT INTO users SELECT * FROM trombidb.users');
 
-        // $this->addSql('DROP TABLE peoples');
-        // $this->addSql('DROP TABLE users');
+        $this->addSql('DROP TABLE peoples');
+        $this->addSql('DROP TABLE users');
     }
 }
