@@ -3,7 +3,7 @@ import { TextField, FormControl, MenuItem, Select, InputLabel } from "@mui/mater
 function SideBar() {
   return (
     <>
-      <div className="p-[30px] rounded-lg shadow-md flex flex-col justify-center bg-[#1B1B1B] text-white">
+      <div className="p-[30px] rounded-lg shadow-md flex flex-col bg-[#1B1B1B] text-white">
         <h1 className="text-2xl font-bold mb-10">Trouvez votre équipe</h1>
         <div className="flex flex-col justify-center w-full">
           <TextField
