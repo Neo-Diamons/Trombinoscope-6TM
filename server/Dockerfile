@@ -14,11 +14,15 @@ RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local
 # install PHP extensions
 RUN apt-get update && apt-get install -y \
     git \
-    libpq-dev
+    libpq-dev \
+    libpng-dev \
+    libjpeg-dev \
+    libwebp-dev
 
 ENV DATABASE_URL "postgresql://postgres:postgres@db:5432/trombiDb?serverVersion=15&charset=utf8"
 
-RUN docker-php-ext-install pdo pdo_pgsql
+RUN docker-php-ext-configure gd --with-jpeg --with-webp
+RUN docker-php-ext-install pdo pdo_pgsql gd
 
 # Install dependencies
 ENV COMPOSER_ALLOW_SUPERUSER=1

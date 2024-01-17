@@ -38,9 +38,6 @@ final class Version20240116081020 extends AbstractMigration
         $this->addSql('CREATE TABLE trombidb.peoples (name VARCHAR(255) NOT NULL, firstname VARCHAR(255) NOT NULL, job VARCHAR(255) NOT NULL, equip VARCHAR(255) NOT NULL, agency VARCHAR(255) NOT NULL, photo_fun_url VARCHAR(255) DEFAULT NULL, photo_pro_url VARCHAR(255) DEFAULT NULL, PRIMARY KEY(name, firstname))');
         $this->addSql('CREATE TABLE trombidb.users (username VARCHAR(255) NOT NULL, password VARCHAR(255) NOT NULL, PRIMARY KEY(username))');
 
-        // $this->addSql('INSERT INTO peoples SELECT * FROM trombidb.peoples');
-        // $this->addSql('INSERT INTO users SELECT * FROM trombidb.users');
-
         $this->addSql('DROP TABLE peoples');
         $this->addSql('DROP TABLE users');
     }

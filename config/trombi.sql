@@ -118,4 +118,4 @@ CREATE TABLE trombiDb.users (
 
 INSERT INTO trombiDb.users (username, password)
 VALUES
-('admin', 'admin');
+('admin', '$2y$10$kVzeGbKgFQ3ObnI.69QJqONOi7lIHOBkiA8Gk328NV3AF5dhpYi56'); -- admin, admin

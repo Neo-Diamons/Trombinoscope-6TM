@@ -41,9 +41,38 @@ class Peoples
             'job' => $people->getJob(),
             'equip' => $people->getEquip(),
             'agency' => $people->getAgency(),
-            'photo_fun_url' => $people->getPhotoFunUrl(),
-            'photo_pro_url' => $people->getPhotoProUrl(),
+            'photo_pro_url' => $people->getPhoto($people, "pro", $people->getPhotoProUrl()),
+            'photo_fun_url' => $people->getPhoto($people, "fun", $people->getPhotoFunUrl())
         ];
+    }
+
+    public function getPhoto($people, $folder, $link)
+    {
+        if ($link == null)
+            return null;
+
+        $path = "photo/" . $folder . "/" . $people->getName() . "_" . $people->getFirstname() . ".webp";
+        $pathLink = "http://" . gethostbyname(gethostname()) . ":8080/" . $path;
+
+        if (file_exists($path))
+            return $pathLink;
+
+        $people->genPhoto($link, $path);
+        return $pathLink;
+    }
+
+    public function genPhoto($link, $path) {
+        ini_set('memory_limit', '-1');
+        
+        $jpg = imagecreatefromjpeg($link);
+        $w = imagesx($jpg);
+        $h = imagesy($jpg);
+
+        $webp = imagecreatetruecolor($w, $h);
+        imagecopy($webp, $jpg, 0, 0, 0, 0, $w, $h);
+        imagewebp($webp, $path, 80);
+        imagedestroy($jpg);
+        imagedestroy($webp);
     }
 
     public function getName(): ?string

@@ -17,6 +17,8 @@ class PeoplesController extends AbstractController
     #[Route('/api/v1/peoples', name: 'app_people')]
     public function index(PeoplesRepository $peoplesRepository): JsonResponse
     {
+        set_time_limit(3600);
+
         $peoples = $peoplesRepository->findAll();
         $peoples = array_map(function($people) {
             return $people->toJson($people);
