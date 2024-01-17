@@ -114,4 +114,37 @@ class PeoplesController extends AbstractController
 
         return $this->json($people);
     }
+
+    #[Route('/api/v1/jobs', name: 'app_jobs')]
+    public function jobs(PeoplesRepository $peoplesRepository): JsonResponse
+    {
+        $jobs = $peoplesRepository->findJobs();
+        $jobs = array_map(function($job) {
+            return $job['job'];
+        }, $jobs);
+        
+        return $this->json($jobs);
+    }
+
+    #[Route('/api/v1/equips', name: 'app_equips')]
+    public function equips(PeoplesRepository $peoplesRepository): JsonResponse
+    {
+        $equips = $peoplesRepository->findEquips();
+        $equips = array_map(function($equip) {
+            return $equip['equip'];
+        }, $equips);
+        
+        return $this->json($equips);
+    }
+
+    #[Route('/api/v1/agencies', name: 'app_agencies')]
+    public function agencies(PeoplesRepository $peoplesRepository): JsonResponse
+    {
+        $agencies = $peoplesRepository->findAgencies();
+        $agencies = array_map(function($agency) {
+            return $agency['agency'];
+        }, $agencies);
+        
+        return $this->json($agencies);
+    }
 }
