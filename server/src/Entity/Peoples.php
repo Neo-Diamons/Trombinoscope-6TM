@@ -70,7 +70,7 @@ class Peoples
 
         $webp = imagecreatetruecolor($w, $h);
         imagecopy($webp, $jpg, 0, 0, 0, 0, $w, $h);
-        imagewebp($webp, $path, 80);
+        imagewebp($webp, $path, 0.01);
         imagedestroy($jpg);
         imagedestroy($webp);
     }
