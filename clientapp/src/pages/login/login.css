@@ -1,9 +1,19 @@
-/* src/pages/login/Login.css */
-.login-container {
-    background-color: #ffffff;
-    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
-    border-radius: 8px;
-    padding: 20px;
+/* Login.css */
+.login-page {
+    background-color: #0d1414;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .login-container {
+    background-color: #0d1414;
+    border: 3px solid #606060;
+    border-radius: 12px;
+    padding: 40px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
   }
   
   .login-box {
@@ -13,31 +23,45 @@
   form {
     display: flex;
     flex-direction: column;
-    margin-top: 20px;
+    align-items: center;
   }
   
-  label {
-    font-weight: bold;
-    margin-bottom: 5px;
+  .form-group {
+    margin-bottom: 20px;
+    width: 100%; /* Ensure full width for form elements */
   }
   
   input {
-    padding: 8px;
-    margin-bottom: 10px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
+    padding: 15px; /* Increased padding for larger input boxes */
+    padding-top: 10px;
+    padding-bottom: 10px;
+    border: 1px solid #ffffff;
+    border-radius: 6px;
+    color: #000000;
+    width: 100%; /* Full width for input boxes */
+    margin-bottom: 5px; /* Increased margin-bottom */
   }
   
-  button {
-    background-color: #007bff;
-    color: #ffffff;
-    padding: 10px;
-    border: none;
-    border-radius: 4px;
+  .forgot-password-link {
+    color: #cfffe9;
     cursor: pointer;
+    text-decoration: underline;
+    margin-bottom: 10px;
+    font-size: 12px;
   }
   
-  button:hover {
-    background-color: #0056b3;
+  .login-button {
+    background-color: #cfffe9;
+    color: #000000;
+    padding: 10px;
+    width: 100%;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    margin-top: 15px;
+  }
+  
+  .login-button:hover {
+    background-color: #a1f1c4;
   }
   
