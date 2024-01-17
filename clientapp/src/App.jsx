@@ -1,8 +1,7 @@
-// import logo from './logo.svg';
 import './App.css';
 
 import Header from "./pages/Header.jsx";
-import Columns from "./pages/Columns.jsx";
+import SideBar from "./pages/SideBar.jsx";
 
 function App() {
     return (
@@ -13,9 +12,9 @@ function App() {
                 grid grid-cols-3
                 p-[30px]
             ">
-                <Columns />
+                <SideBar />
                 <div class="
-                    col-span-2 bg-red-900
+                    col-span-2
                 ">
                 </div>
             </div>
