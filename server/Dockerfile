@@ -16,6 +16,8 @@ RUN apt-get update && apt-get install -y \
     git \
     libpq-dev
 
+ENV DATABASE_URL "postgresql://postgres:postgres@db:5432/trombiDb?serverVersion=15&charset=utf8"
+
 RUN docker-php-ext-install pdo pdo_pgsql
 
 # Install dependencies

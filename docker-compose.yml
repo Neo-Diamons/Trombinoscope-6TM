@@ -20,6 +20,8 @@ services:
       - "8080:8080"
     depends_on:
       - db
+    environment:
+      DATABASE_URL: "postgresql://username:password@db:5432/trombiDb?serverVersion=15&charset=utf8"
 
   react-app:
     build:
