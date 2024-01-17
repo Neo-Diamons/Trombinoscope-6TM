@@ -64,13 +64,16 @@ class Peoples
     public function genPhoto($link, $path) {
         ini_set('memory_limit', '-1');
         
+        $percent = 0.2;
+
         $jpg = imagecreatefromjpeg($link);
         $w = imagesx($jpg);
         $h = imagesy($jpg);
 
-        $webp = imagecreatetruecolor($w, $h);
-        imagecopy($webp, $jpg, 0, 0, 0, 0, $w, $h);
-        imagewebp($webp, $path, 0.01);
+        $webp = imagecreatetruecolor($w * $percent, $h * $percent);
+        imagecopyresampled($webp, $jpg, 0, 0, 0, 0, $w * $percent, $h * $percent, $w, $h);
+        imagewebp($webp, $path, 50);
+
         imagedestroy($jpg);
         imagedestroy($webp);
     }
