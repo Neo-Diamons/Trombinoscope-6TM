@@ -18,6 +18,7 @@ function Home() {
       .then((res) => res.json())
       .then((data) => {
         setAllTeams(data);
+        console.log(data);
       })
       .catch((err) => console.log(err));
   }, []);
@@ -72,11 +73,10 @@ function Home() {
               <>
                 {person.photo_pro_url !== null && (
                   <img
-                    className={`transition duration-500 ease-in-out transform hover:-translate-y-1 hover:scale-110 cursor-pointer rounded-[8px] h-full w-full ${
-                      selectedPerson && selectedPerson.photo_pro_url === person.photo_pro_url
-                        ? "border-4 border-blue-500"
-                        : ""
-                    }`}
+                    className={`transition duration-500 ease-in-out transform hover:-translate-y-1 hover:scale-110 cursor-pointer rounded-[8px] h-full w-full ${selectedPerson && selectedPerson.photo_pro_url === person.photo_pro_url
+                      ? "border-4 border-blue-500"
+                      : ""
+                      }`}
                     onClick={() => handleCardClick(person)}
                     style={{ overflow: "hidden" }}
                     src={person.photo_pro_url}
