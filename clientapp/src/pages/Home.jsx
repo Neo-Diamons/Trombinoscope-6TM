@@ -23,7 +23,11 @@ function Home() {
   }, []);
 
   const handleCardClick = (person) => {
-    setSelectedPerson(person);
+    if (selectedPerson && selectedPerson.photo_pro_url === person.photo_pro_url) {
+      setSelectedPerson(null);
+    } else {
+      setSelectedPerson(person);
+    }
   };
 
   const handleImageHover = (event, newSrc) => {
@@ -49,13 +53,12 @@ function Home() {
           {selectedPerson && (
             <div ref={descriptionRef} className="w-full bg-[#1B1B1B] rounded-[8px] shadow-md p-[30px] flex flex-row gap-10">
               <img
-                className={`rounded-[8px]`}
-                onClick={() => handleCardClick(selectedPerson)}
+                className="rounded-[8px] h-full w-[300px] object-cover"
                 style={{ overflow: "hidden" }}
                 src={selectedPerson.photo_pro_url}
                 alt={selectedPerson.name}
-                width="300"
-                height="300"
+                onMouseEnter={(event) => handleImageHover(event, selectedPerson.photo_fun_url)}
+                onMouseLeave={(event) => handleImageHover(event, selectedPerson.photo_pro_url)}
               />
               <div className="flex flex-col text-white justify-center items-start">
                 <h1 className="text-4xl font-bold mb-10 text-center my-5">{selectedPerson.name} {selectedPerson.firstname}</h1>
@@ -69,7 +72,7 @@ function Home() {
               <>
                 {person.photo_pro_url !== null && (
                   <img
-                    className={`transition duration-500 ease-in-out transform hover:-translate-y-1 hover:scale-110 cursor-pointer rounded-[8px] ${
+                    className={`transition duration-500 ease-in-out transform hover:-translate-y-1 hover:scale-110 cursor-pointer rounded-[8px] h-full w-full ${
                       selectedPerson && selectedPerson.photo_pro_url === person.photo_pro_url
                         ? "border-4 border-blue-500"
                         : ""
@@ -78,8 +81,6 @@ function Home() {
                     style={{ overflow: "hidden" }}
                     src={person.photo_pro_url}
                     alt={person.name}
-                    width="300"
-                    height="300"
                     onMouseEnter={(event) => handleImageHover(event, person.photo_fun_url)}
                     onMouseLeave={(event) => handleImageHover(event, person.photo_pro_url)}
                   />
