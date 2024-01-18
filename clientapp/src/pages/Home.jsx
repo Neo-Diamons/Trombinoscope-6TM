@@ -43,15 +43,21 @@ function Home() {
     }
   }, [selectedPerson]);
 
+  const [filteredTeams, setFilteredTeams] = useState(allTeams);
+
+  useEffect(() => {
+    setFilteredTeams(allTeams);
+  }, [allTeams]);
+
   return (
     <div className="Home">
       <Header />
       <h1 className="text-4xl font-bold mb-10 text-center my-5">El Famoso 6tm trombinoscope</h1>
 
       <div className="grid grid-cols-3 p-[30px]">
-        <SideBar />
+        <SideBar allTeams={allTeams} setFilteredTeams={setFilteredTeams} />
         <div className="col-span-2 flex flex-col items-center ml-5 justify-center">
-          {selectedPerson && (
+          {selectedPerson && filteredTeams.find((person) => person.photo_pro_url === selectedPerson.photo_pro_url) && (
             <div ref={descriptionRef} className="w-full bg-[#1B1B1B] rounded-[8px] shadow-md p-[30px] flex flex-row gap-10">
               <img
                 className="rounded-[8px] h-full w-[300px] object-cover"
@@ -69,7 +75,7 @@ function Home() {
             </div>
           )}
           <div className="grid grid-cols-4 gap-5">
-            {allTeams.map((person, index) => (
+            {filteredTeams.map((person, index) => (
               <>
                 {person.photo_pro_url !== null && (
                   <img

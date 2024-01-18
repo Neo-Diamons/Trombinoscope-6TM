@@ -5,10 +5,8 @@ import MuiAccordion from '@mui/material/Accordion';
 import MuiAccordionSummary from '@mui/material/AccordionSummary';
 import MuiAccordionDetails from '@mui/material/AccordionDetails';
 import Typography from '@mui/material/Typography';
-import { TextField, FormControl, MenuItem, Select, InputLabel } from "@mui/material";
+import { TextField, FormControl, Autocomplete } from "@mui/material";
 import { Checkbox, FormControlLabel } from "@mui/material";
-import { useState } from "react";
-import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 
 const cityMap = new Map([
   ["Rennes"],
@@ -17,14 +15,14 @@ const cityMap = new Map([
 
 const jobMap = new Map([
   ["Développeur"],
-  ["Designer"],
+  ["Alternant"],
   ["Product Owner"],
 ]);
 
 const teamMap = new Map([
-  ["Team 1"],
-  ["Team 2"],
-  ["Team 3"],
+  [`P\u00f4le AI`],
+  [`P\u00f4le Walker`],
+  [`Team IT`],
 ]);
 
 const Accordion = styled((props) => (
@@ -63,33 +61,112 @@ const AccordionDetails = styled(MuiAccordionDetails)(({ theme }) => ({
   borderTop: '1px solid rgba(0, 0, 0, .125)',
 }));
 
-function SideBar(people) {
+function SideBar({ allTeams, setFilteredTeams }) {
   const [expanded, setExpanded] = React.useState('panel1');
+  const [selectedJobs, setSelectedJobs] = React.useState(new Set());
+  const [selectedTeams, setSelectedTeams] = React.useState(new Set());
+  const [selectedCities, setSelectedCities] = React.useState(new Set());
 
   const handleChange = (panel) => (event, newExpanded) => {
     setExpanded(newExpanded ? panel : false);
   };
+
+  const handleJobChange = (job) => {
+    if (selectedJobs.has(job)) {
+      selectedJobs.delete(job);
+    } else {
+      selectedJobs.add(job);
+    }
+    setSelectedJobs(new Set(selectedJobs));
+    filterTeams();
+  }
+
+  const handleTeamChange = (team) => {
+    if (selectedTeams.has(team)) {
+      selectedTeams.delete(team);
+    } else {
+      selectedTeams.add(team);
+    }
+    setSelectedTeams(new Set(selectedTeams));
+    filterTeams();
+  }
+
+  const handleCityChange = (city) => {
+    if (selectedCities.has(city)) {
+      selectedCities.delete(city);
+    } else {
+      selectedCities.add(city);
+    }
+    setSelectedCities(new Set(selectedCities));
+    filterTeams();
+  }
+
+  const filterTeams = () => {
+    let filtered = allTeams;
+
+    if (selectedJobs.size > 0) {
+      filtered = filtered.filter((person) => {
+        return selectedJobs.has(person.job);
+      });
+    }
+
+    if (selectedTeams.size > 0) {
+      filtered = filtered.filter((person) => {
+        return selectedTeams.has(person.equip);
+      });
+    }
+
+    if (selectedCities.size > 0) {
+      filtered = filtered.filter((person) => {
+        return selectedCities.has(person.agency);
+      });
+    }
+
+    setFilteredTeams(filtered);
+  }
+
+  React.useEffect(() => {
+    filterTeams();
+  }, [selectedJobs, selectedTeams, selectedCities]);
 
   return (
     <>
       <div className="p-[30px] rounded-lg shadow-md flex flex-col bg-[#1B1B1B] text-white">
         <h1 className="text-2xl font-bold mb-10">Trouvez votre équipe</h1>
         <div className="flex flex-col justify-center w-full gap-10">
-          <TextField
-            id="outlined-basic"
-            label="Rechercher"
-            variant="outlined"
-            className="mb-5"
-            sx={{
-              '& .MuiInputBase-root': { color: '#D0FFE9', backgroundColor: '#2D2D2D' },
-              '& label.Mui-focused': { color: '#D0FFE9' },
-              '& label': { color: '#D0FFE9' },
-              '& .MuiOutlinedInput-root': {
-                '& fieldset': { borderColor: '#D0FFE9' },
-                '&:hover fieldset': { borderColor: '#D0FFE9' },
-                '&.Mui-focused fieldset': { borderColor: '#D0FFE9' }
-              }
+          <Autocomplete
+            options={allTeams}
+            getOptionLabel={(person) => `${person.firstname} ${person.name}`}
+            filterOptions={(options, state) => options
+              .filter((person) => {
+                return ((person.firstname.toLowerCase().includes(state.inputValue.toLowerCase())
+                  || person.name.toLowerCase().includes(state.inputValue.toLowerCase())) && person.photo_pro_url !== null);
+              })}
+            onChange={(event, newValue) => {
+              if (newValue)
+                setFilteredTeams([newValue]);
+              else
+                setFilteredTeams(allTeams);
             }}
+            isOptionEqualToValue={(option, value) => option.id === value.id}
+            renderInput={(params) => (
+              <TextField
+                {...params}
+                label="Rechercher"
+                variant="outlined"
+                className="mb-5"
+                sx={{
+                  '& .MuiInputBase-root': { color: '#D0FFE9', backgroundColor: '#2D2D2D' },
+                  '& label.Mui-focused': { color: '#D0FFE9' },
+                  '& label': { color: '#D0FFE9' },
+                  '& .MuiOutlinedInput-root': {
+                    '& fieldset': { borderColor: '#D0FFE9' },
+                    '&:hover fieldset': { borderColor: '#D0FFE9' },
+                    '&.Mui-focused fieldset': { borderColor: '#D0FFE9' }
+                  }
+                }}
+              />
+            )}
           />
           <div>
             <Accordion
@@ -101,7 +178,7 @@ function SideBar(people) {
               }}
             >
               <AccordionSummary aria-controls="panel1d-content" id="panel1d-header">
-                <Typography>Job</Typography>
+                <Typography>Emploi</Typography>
               </AccordionSummary>
               <AccordionDetails>
                 <Typography>
@@ -113,7 +190,12 @@ function SideBar(people) {
                             return (
                               <FormControlLabel
                                 key={job}
-                                control={<Checkbox checked={value} />}
+                                control={
+                                  <Checkbox
+                                    checked={selectedJobs.has(job)}
+                                    onChange={() => handleJobChange(job)}
+                                  />
+                                }
                                 label={job}
                               />
                             );
@@ -127,7 +209,12 @@ function SideBar(people) {
                             return (
                               <FormControlLabel
                                 key={job}
-                                control={<Checkbox checked={value} />}
+                                control={
+                                  <Checkbox
+                                    checked={selectedJobs.has(job)}
+                                    onChange={() => handleJobChange(job)}
+                                  />
+                                }
                                 label={job}
                               />
                             );
@@ -158,7 +245,12 @@ function SideBar(people) {
                             return (
                               <FormControlLabel
                                 key={team}
-                                control={<Checkbox checked={value} />}
+                                control={
+                                  <Checkbox
+                                    checked={selectedTeams.has(team)}
+                                    onChange={() => handleTeamChange(team)}
+                                  />
+                                }
                                 label={team}
                               />
                             );
@@ -172,7 +264,12 @@ function SideBar(people) {
                             return (
                               <FormControlLabel
                                 key={team}
-                                control={<Checkbox checked={value} />}
+                                control={
+                                  <Checkbox
+                                    checked={selectedTeams.has(team)}
+                                    onChange={() => handleTeamChange(team)}
+                                  />
+                                }
                                 label={team}
                               />
                             );
@@ -203,7 +300,12 @@ function SideBar(people) {
                             return (
                               <FormControlLabel
                                 key={city}
-                                control={<Checkbox checked={value} />}
+                                control={
+                                  <Checkbox
+                                    checked={selectedCities.has(city)}
+                                    onChange={() => handleCityChange(city)}
+                                  />
+                                }
                                 label={city}
                               />
                             );
@@ -217,7 +319,12 @@ function SideBar(people) {
                             return (
                               <FormControlLabel
                                 key={city}
-                                control={<Checkbox checked={value} />}
+                                control={
+                                  <Checkbox
+                                    checked={selectedCities.has(city)}
+                                    onChange={() => handleCityChange(city)}
+                                  />
+                                }
                                 label={city}
                               />
                             );
