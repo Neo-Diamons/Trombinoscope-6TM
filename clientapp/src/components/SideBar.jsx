@@ -39,7 +39,7 @@ const Accordion = styled((props) => (
 
 const AccordionSummary = styled((props) => (
   <MuiAccordionSummary
-    expandIcon={<ArrowForwardIosSharpIcon sx={{ fontSize: '0.9rem', color: '#D0FFE9' }} />}
+    expandIcon={<ArrowForwardIosSharpIcon sx={{ fontSize: '0.9rem', color: '#000' }} />}
     {...props}
   />
 ))(({ theme }) => ({
@@ -130,9 +130,31 @@ function SideBar({ allTeams, setFilteredTeams }) {
   }, [selectedJobs, selectedTeams, selectedCities]);
 
   return (
-    <>
-      <div className="p-[30px] rounded-lg shadow-md flex flex-col bg-[#1B1B1B] text-white">
-        <h1 className="text-2xl font-bold mb-10">Trouvez votre équipe</h1>
+    <div className="
+      w-[30vw] flex justify-center
+    ">
+      <div className="
+        fixed h-[70vh] w-[20vw] mt-[8.5vh] mr-[1vw]
+        bg-backgroundShadow
+        rounded-[8px]
+      "></div>
+      <div className="
+        fixed mt-[7.5vh]
+        h-[70vh] w-[20vw] p-[56px]
+        bg-backgroundLight
+        rounded-[8px]
+        border-[3px] border-border
+      ">
+        <div className="
+          flex justify-center text-center
+          font-sans font-bold not-italic
+          text-white text-[40px] tracking-[0.2px] leading-10
+          h-[30%]
+        ">
+          <p>
+            Trouvez votre équipe
+          </p>
+        </div>
         <div className="flex flex-col justify-center w-full gap-10">
           <Autocomplete
             options={allTeams}
@@ -152,13 +174,13 @@ function SideBar({ allTeams, setFilteredTeams }) {
             renderInput={(params) => (
               <TextField
                 {...params}
-                label="Rechercher"
+                placeholder="Rechercher"
                 variant="outlined"
                 className="mb-5"
                 sx={{
-                  '& .MuiInputBase-root': { color: '#D0FFE9', backgroundColor: '#2D2D2D' },
-                  '& label.Mui-focused': { color: '#D0FFE9' },
-                  '& label': { color: '#D0FFE9' },
+                  '& .MuiInputBase-root': { color: '#000', backgroundColor: '#D0FFE9' },
+                  '& label.Mui-focused': { color: '#000' },
+                  '& label': { color: '#000' },
                   '& .MuiOutlinedInput-root': {
                     '& fieldset': { borderColor: '#D0FFE9' },
                     '&:hover fieldset': { borderColor: '#D0FFE9' },
@@ -172,9 +194,10 @@ function SideBar({ allTeams, setFilteredTeams }) {
             <Accordion
               expanded={expanded === 'panel1'}
               onChange={handleChange('panel1')}
+              className="font-bold rounded-t-[8px]"
               sx={{
-                backgroundColor: '#2D2D2D',
-                color: '#D0FFE9',
+                backgroundColor: '#D0FFE9',
+                color: '#000',
               }}
             >
               <AccordionSummary aria-controls="panel1d-content" id="panel1d-header">
@@ -183,54 +206,31 @@ function SideBar({ allTeams, setFilteredTeams }) {
               <AccordionDetails>
                 <Typography>
                   <FormControl variant="outlined" className="mb-5 w-full">
-                    <div className="flex flex-col lg:flex-row justify-center w-full lg:gap-10">
-                      <div className="w-full lg:w-1/2">
-                        {Array.from(jobMap).map(([job, value], index, self) => {
-                          if (index < self.length / 2) {
-                            return (
-                              <FormControlLabel
-                                key={job}
-                                control={
-                                  <Checkbox
-                                    checked={selectedJobs.has(job)}
-                                    onChange={() => handleJobChange(job)}
-                                  />
-                                }
-                                label={job}
+                    {Array.from(jobMap).map(([job, value], index, self) => {
+                      if (index < self.length) {
+                        return (
+                          <FormControlLabel
+                            key={job}
+                            control={
+                              <Checkbox
+                                checked={selectedJobs.has(job)}
+                                onChange={() => handleJobChange(job)}
                               />
-                            );
-                          }
-                          return null;
-                        })}
-                      </div>
-                      <div className="w-full lg:w-1/2">
-                        {Array.from(jobMap).map(([job, value], index, self) => {
-                          if (index >= self.length / 2) {
-                            return (
-                              <FormControlLabel
-                                key={job}
-                                control={
-                                  <Checkbox
-                                    checked={selectedJobs.has(job)}
-                                    onChange={() => handleJobChange(job)}
-                                  />
-                                }
-                                label={job}
-                              />
-                            );
-                          }
-                          return null;
-                        })}
-                      </div>
-                    </div>
+                            }
+                            label={job}
+                          />
+                        );
+                      }
+                      return null;
+                    })}
                   </FormControl>
                 </Typography>
               </AccordionDetails>
             </Accordion>
             <Accordion expanded={expanded === 'panel2'} onChange={handleChange('panel2')}
               sx={{
-                backgroundColor: '#2D2D2D',
-                color: '#D0FFE9',
+                backgroundColor: '#D0FFE9',
+                color: '#000',
               }}>
               <AccordionSummary aria-controls="panel2d-content" id="panel2d-header">
                 <Typography>Equipe</Typography>
@@ -238,54 +238,32 @@ function SideBar({ allTeams, setFilteredTeams }) {
               <AccordionDetails>
                 <Typography>
                   <FormControl variant="outlined" className="mb-5 w-full">
-                    <div className="flex lg:flex-row justify-center w-full lg:gap-10">
-                      <div className="flex flex-col w-full lg:w-1/2">
-                        {Array.from(teamMap).map(([team, value], index, self) => {
-                          if (index < self.length / 2) {
-                            return (
-                              <FormControlLabel
-                                key={team}
-                                control={
-                                  <Checkbox
-                                    checked={selectedTeams.has(team)}
-                                    onChange={() => handleTeamChange(team)}
-                                  />
-                                }
-                                label={team}
+                    {Array.from(teamMap).map(([team, value], index, self) => {
+                      if (index < self.length / 2) {
+                        return (
+                          <FormControlLabel
+                            key={team}
+                            control={
+                              <Checkbox
+                                checked={selectedTeams.has(team)}
+                                onChange={() => handleTeamChange(team)}
                               />
-                            );
-                          }
-                          return null;
-                        })}
-                      </div>
-                      <div className="w-full lg:w-1/2">
-                        {Array.from(teamMap).map(([team, value], index, self) => {
-                          if (index >= self.length / 2) {
-                            return (
-                              <FormControlLabel
-                                key={team}
-                                control={
-                                  <Checkbox
-                                    checked={selectedTeams.has(team)}
-                                    onChange={() => handleTeamChange(team)}
-                                  />
-                                }
-                                label={team}
-                              />
-                            );
-                          }
-                          return null;
-                        })}
-                      </div>
-                    </div>
+                            }
+                            label={team}
+                          />
+                        );
+                      }
+                      return null;
+                    })}
                   </FormControl>
                 </Typography>
               </AccordionDetails>
             </Accordion>
             <Accordion expanded={expanded === 'panel3'} onChange={handleChange('panel3')}
+              className="rounded-b-[8px]"
               sx={{
-                backgroundColor: '#2D2D2D',
-                color: '#D0FFE9',
+                backgroundColor: '#D0FFE9',
+                color: '#000',
               }}>
               <AccordionSummary aria-controls="panel3d-content" id="panel3d-header">
                 <Typography>Agence</Typography>
@@ -293,46 +271,23 @@ function SideBar({ allTeams, setFilteredTeams }) {
               <AccordionDetails>
                 <Typography>
                   <FormControl variant="outlined" className="mb-5 w-full">
-                    <div className="flex flex-col lg:flex-row justify-center w-full lg:gap-10">
-                      <div className="w-full lg:w-1/2">
-                        {Array.from(cityMap).map(([city, value], index, self) => {
-                          if (index < self.length / 2) {
-                            return (
-                              <FormControlLabel
-                                key={city}
-                                control={
-                                  <Checkbox
-                                    checked={selectedCities.has(city)}
-                                    onChange={() => handleCityChange(city)}
-                                  />
-                                }
-                                label={city}
+                    {Array.from(cityMap).map(([city, value], index, self) => {
+                      if (index < self.length) {
+                        return (
+                          <FormControlLabel
+                            key={city}
+                            control={
+                              <Checkbox
+                                checked={selectedCities.has(city)}
+                                onChange={() => handleCityChange(city)}
                               />
-                            );
-                          }
-                          return null;
-                        })}
-                      </div>
-                      <div className="w-full lg:w-1/2">
-                        {Array.from(cityMap).map(([city, value], index, self) => {
-                          if (index >= self.length / 2) {
-                            return (
-                              <FormControlLabel
-                                key={city}
-                                control={
-                                  <Checkbox
-                                    checked={selectedCities.has(city)}
-                                    onChange={() => handleCityChange(city)}
-                                  />
-                                }
-                                label={city}
-                              />
-                            );
-                          }
-                          return null;
-                        })}
-                      </div>
-                    </div>
+                            }
+                            label={city}
+                          />
+                        );
+                      }
+                      return null;
+                    })}
                   </FormControl>
                 </Typography>
               </AccordionDetails>
@@ -340,7 +295,7 @@ function SideBar({ allTeams, setFilteredTeams }) {
           </div>
         </div>
       </div >
-    </>
+    </div>
   );
 }
 
