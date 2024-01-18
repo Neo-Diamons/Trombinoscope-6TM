@@ -10,7 +10,7 @@ function Login() {
   const [password, setPassword] = useState('');
 
   const handleLogin = () => {
-    fetch(`http://localhost:${port}/api/v1/user/login`, {
+    fetch(`http://localhost:${port}/api/user/login`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

@@ -9,7 +9,7 @@ function Home() {
   const [selectedPerson, setSelectedPerson] = useState(null);
 
   useEffect(() => {
-    fetch(`http://localhost:${port}/api/v1/peoples`, {
+    fetch(`http://localhost:${port}/api/peoples`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
