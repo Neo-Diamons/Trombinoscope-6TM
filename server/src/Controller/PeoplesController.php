@@ -47,11 +47,13 @@ class PeoplesController extends AbstractController
             return new JsonResponse([
                 "error" => "parameters is null"
             ], 400);
-        if ($parameters["job"] == null
-            && $parameters["equip"] == null
-            && $parameters["agency"] == null
-            && $parameters["photo_fun_url"] == null
-            && $parameters["photo_pro_url"] == null)
+
+        # check if parameters iby using array_key_exists
+        if (!array_key_exists("job", $parameters)
+            && !array_key_exists("equip", $parameters)
+            && !array_key_exists("agency", $parameters)
+            && !array_key_exists("photo_fun_url", $parameters)
+            && !array_key_exists("photo_pro_url", $parameters))
             return new JsonResponse([
                 "error" => "job, equip, agency, photo_fun_url and photo_pro_url is null"
             ], 400);
@@ -62,16 +64,16 @@ class PeoplesController extends AbstractController
                 "error" => "id not found"
             ], 404);
 
-        if ($parameters["job"] != null)
-            $people->setJob($parameters["job"]);
-        if ($parameters["equip"] != null)
-            $people->setEquip($parameters["equip"]);
-        if ($parameters["agency"] != null)
-            $people->setAgency($parameters["agency"]);
-        if ($parameters["photo_fun_url"] != null)
-            $people->setPhotoFunUrl($parameters["photo_fun_url"]);
-        if ($parameters["photo_pro_url"] != null)
-            $people->setPhotoProUrl($parameters["photo_pro_url"]);
+            if (array_key_exists("job", $parameters))
+                $people->setJob($parameters["job"]);
+            if (array_key_exists("equip", $parameters))
+                $people->setEquip($parameters["equip"]);
+            if (array_key_exists("agency", $parameters))
+                $people->setAgency($parameters["agency"]);
+            if (array_key_exists("photo_fun_url", $parameters))
+                $people->setPhotoFunUrl($parameters["photo_fun_url"]);
+            if (array_key_exists("photo_pro_url", $parameters))
+                $people->setPhotoProUrl($parameters["photo_pro_url"]);
 
         $entityManager->persist($people);
         $entityManager->flush();

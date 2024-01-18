@@ -145,6 +145,14 @@ function Admin() {
             <TextField
               className="w-full"
               id="outlined-basic"
+              label="Equip"
+              variant="outlined"
+              value={selectedPerson && selectedPerson.equip}
+              onChange={(e) => setSelectedPerson({ ...selectedPerson, equip: e.target.value })}
+            />
+            <TextField
+              className="w-full"
+              id="outlined-basic"
               label="Agency"
               variant="outlined"
               value={selectedPerson && selectedPerson.agency}
