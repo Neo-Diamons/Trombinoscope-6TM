@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom'; // Import Link from react-router-dom
 import Stack from '@mui/material/Stack';
 import Button from '@mui/material/Button';
-import Login from '../pages/login/login'
+import Home from '../Home.jsx';
 
 function Header() {
   return (
@@ -20,11 +20,11 @@ function Header() {
           alt="6TM logo with title"
         />
       </Link>
-      <Link to="/login">
+      <Link to="/">
       <Stack spacing={2} direction="row">
         <Button
           id="outlined-basic"
-          label="se connecter"
+          label="Retour"
           variant="outlined"
           size="small"
           sx={{
@@ -35,7 +35,7 @@ function Header() {
             right: 25,
             top: 25
           }}
-        >Se connecter</Button>
+        >Retour</Button>
       </Stack>
       </Link>
     </header>
