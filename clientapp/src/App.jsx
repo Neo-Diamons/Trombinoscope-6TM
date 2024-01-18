@@ -1,6 +1,7 @@
 // App.jsx
 import React from "react";
 import { Router } from "./Router";
+import Header from "./components/Header";
 import { ReactComponent as BackgroundLogo } from "./components/svg/6TM.svg";
 import { ReactComponent as FuseeLogo } from "./components/svg/Fusee.svg";
 import "./App.css"; // Import your main stylesheet
