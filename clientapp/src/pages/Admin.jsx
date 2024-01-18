@@ -9,7 +9,6 @@ import ListItemAvatar from '@mui/material/ListItemAvatar';
 import Avatar from '@mui/material/Avatar';
 
 import TextField from '@mui/material/TextField';
-import Fab from '@mui/material/Fab';
 
 const port = process.env.PORT || 8080;
 
@@ -156,7 +155,7 @@ function Admin() {
               id="outlined-basic"
               label="Profil Picture"
               variant="outlined"
-              placeholder="Doit être une URL"
+              placeholder="Doit être une URL (.jpeg uniquement)"
               value={selectedPerson && selectedPerson.photo_pro_url}
               onChange={(e) => setSelectedPerson({ ...selectedPerson, photo_pro_url: e.target.value })}
             />
@@ -165,7 +164,7 @@ function Admin() {
               id="outlined-basic"
               label="Fun Picture"
               variant="outlined"
-              placeholder="Doit être une URL"
+              placeholder="Doit être une URL (.jpeg uniquement)"
               value={selectedPerson && selectedPerson.photo_fun_url}
               onChange={(e) => setSelectedPerson({ ...selectedPerson, photo_fun_url: e.target.value })}
             />
