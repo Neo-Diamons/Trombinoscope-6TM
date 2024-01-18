@@ -6,7 +6,13 @@ import Home from '../Home.jsx';
 
 function Header() {
   return (
-    <header>
+    <header className="
+      fixed top-0 right-0 w-screen h-[81px]
+      bg-background border-b-[3px] border-[#ddd9d9]
+      flex items-center
+      z-10
+      p-[20px]
+    ">
       <Link to="/">
         <img
           loading="eager"
