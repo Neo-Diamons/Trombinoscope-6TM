@@ -51,7 +51,7 @@ class Peoples
         ];
     }
 
-    public function getPhoto(string $folder, string $link)
+    public function getPhoto(string $folder, ?string $link)
     {
         if ($link == null)
             return null;
