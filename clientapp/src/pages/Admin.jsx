@@ -14,7 +14,7 @@ import Fab from '@mui/material/Fab';
 const port = process.env.PORT || 8080;
 
 function deletePerson(id) {
-  fetch(`http://localhost:${port}/api/peoples/${id}`, {
+  fetch(`http://localhost:${port}/api/people/${id}`, {
     method: "DELETE",
     headers: {
       "Content-Type": "application/json",
@@ -28,7 +28,7 @@ function deletePerson(id) {
 }
 
 function editPerson(id, person) {
-  fetch(`http://localhost:${port}/api/peoples/${id}`, {
+  fetch(`http://localhost:${port}/api/people/${id}`, {
     method: "PATCH",
     headers: {
       "Content-Type": "application/json",
