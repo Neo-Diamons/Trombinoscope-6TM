@@ -84,7 +84,7 @@ class UsersController extends AbstractController
         $user = $UsersRepository->findOneByName($request->get("username"));
         if ($user == null)
             return $this->json([
-                "error" => "username not found"
+                "error" => "No user found"
             ], 404);
 
         if (!password_verify($request->get("password"), $user->getPassword()))
