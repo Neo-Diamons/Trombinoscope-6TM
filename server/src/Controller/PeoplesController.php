@@ -72,4 +72,21 @@ class PeoplesController extends AbstractController
 
         return new JsonResponse($people->toJson());
     }
+
+    #[Route("/api/people/{id}", name: "people_delete", methods: ["DELETE"])]
+    public function delete(PeoplesRepository $peoplesRepository, EntityManagerInterface $entityManager, int $id): JsonResponse
+    {
+        $people = $peoplesRepository->findOneById($id);
+        if ($people == null)
+            return new JsonResponse([
+                "error" => "id not found"
+            ], 404);
+
+        $entityManager->remove($people);
+        $entityManager->flush();
+
+        return new JsonResponse([
+            "success" => "people deleted"
+        ]);
+    }
 }

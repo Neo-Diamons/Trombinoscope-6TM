@@ -1,15 +1,24 @@
+// App.jsx
+import React from "react";
 import { Router } from "./Router";
+import { ReactComponent as BackgroundLogo } from "./components/svg/6TM.svg";
+import { ReactComponent as FuseeLogo } from "./components/svg/Fusee.svg";
+import "./App.css"; // Import your main stylesheet
 
 function App() {
-    return (
-        <div className="relative App bg-[#0c1414] min-w-screen min-h-screen">
-            {/* <div className="absolute top-10 right-20 z-[1] w-[30%] h-[30%] opacity-10" style={{ transform: "translate(-50%, 50%)" }}>
-                <img src="/svgexport-3.svg" alt="Description of the SVG" />
-                <object type="image/svg+xml" data="/svgexport-3.svg">Your browser does not support SVG</object>
-            </div> */}
-            <Router />
-        </div >
-    );
+  return (
+    <div className="App bg-background min-w-screen min-h-screen">
+      <div>
+        <div className="fixed right-0 top-[-25px] overflow-x-hidden">
+          <BackgroundLogo />
+        </div>
+        <div className="fixed right-[1%] top-[10%] overflow-x-hidden">
+          <FuseeLogo />
+        </div>
+      </div>
+      <Router />
+    </div>
+  );
 }
 
 export default App;

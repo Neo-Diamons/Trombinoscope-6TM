@@ -1,4 +1,5 @@
 import { useEffect, useState, useRef } from "react";
+import {Link } from "react-router-dom";
 import Header from "../components/Header.jsx";
 import SideBar from "../components/SideBar.jsx";
 
@@ -9,7 +10,7 @@ function Home() {
   const [selectedPerson, setSelectedPerson] = useState(null);
 
   useEffect(() => {
-    fetch(`http://localhost:${port}/api/v1/peoples`, {
+    fetch(`http://localhost:${port}/api/peoples`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
