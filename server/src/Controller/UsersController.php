@@ -14,46 +14,39 @@ use Symfony\Component\HttpFoundation\Request;
 
 class UsersController extends AbstractController
 {
-    #[Route("/api/v1/users", name: "app_users")]
-    public function index(UsersRepository $UsersRepository): JsonResponse
+    #[Route("/api/users", name: "users", methods: ["GET"])]
+    public function showAll(UsersRepository $UsersRepository): JsonResponse
     {
         $users = $UsersRepository->findAll();
-        
         $users = array_map(function($user) {
-            return $user->toJson($user);
+            return $user->toJson();
         }, $users);
         
-        return $this->json($users);
+        return new JsonResponse($users);
     }
 
-    #[Route("/api/v1/user", name: "user_show")]
-    public function show(UsersRepository $UsersRepository, Request $request): JsonResponse
+    #[Route("/api/user/{id}", name: "user", methods: ["GET"])]
+    public function index(UsersRepository $UsersRepository, int $id): JsonResponse
     {
+        $user = $UsersRepository->findOneById($id);
         if ($user == null)
-            return $this->json([
-                "error" => "username not found"
-            ], 404);
-        $user = $UsersRepository->findOneByName($request->get("username"));
-        if ($user == null)
-            return $this->json([
-                "error" => "username not found"
+            return new JsonResponse([
+                "error" => "id not found"
             ], 404);
 
-        $user = $user->toJson($user);
-
-        return $this->json($user);
+        return new JsonResponse($user->toJson());
     }
 
-    #[Route("/api/v1/user/create", name: "user_create")]
+    #[Route("/api/user/create", name: "user_create", methods: ["POST"])]
     public function create(UsersRepository $UsersRepository, Request $request, EntityManagerInterface $entityManager): JsonResponse
     {
         if ($request->get("username") == null || $request->get("password") == null)
-            return $this->json([
+            return new JsonResponse([
                 "error" => "username or password is null"
             ], 400);
         if ($UsersRepository->findOneByName($request->get("username")) != null)
-            return $this->json([
-                "error" => "username already exist"
+            return new JsonResponse([
+                "error" => "user already exist"
             ], 409);
 
         $user = new Users();
@@ -64,35 +57,27 @@ class UsersController extends AbstractController
         $entityManager->flush();
 
         $user = $UsersRepository->findOneByName($request->get("username"));
-        $user = $user->toJson($user);
-
-        return $this->json($user);
+        return new JsonResponse($user->toJson());
     }
 
-    #[Route("/api/v1/user/login", name: "user_login")]
+    #[Route("/api/login", name: "login", methods: ["POST"])]
     public function login(UsersRepository $UsersRepository, Request $request): JsonResponse
     {
         if ($request->get("username") == null || $request->get("password") == null)
-            return $this->json([
+            return new JsonResponse([
                 "error" => "username or password is null"
             ], 400);
-        if ($UsersRepository->findOneByName($request->get("username")) == null)
-            return $this->json([
-                "error" => "username not found"
-            ], 404);
-
         $user = $UsersRepository->findOneByName($request->get("username"));
         if ($user == null)
-            return $this->json([
+            return new JsonResponse([
                 "error" => "No user found"
             ], 404);
 
         if (!password_verify($request->get("password"), $user->getPassword()))
-            return $this->json([
+            return new JsonResponse([
                 "error" => "password is incorrect"
             ], 401);
 
-        $user = $user->toJson($user);
-        return $this->json($user);
+        return new JsonResponse(null, 200);
     }
 }

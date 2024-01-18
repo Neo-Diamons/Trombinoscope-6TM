@@ -12,6 +12,10 @@ use Doctrine\ORM\Mapping as ORM;
 class Peoples
 {
     #[ORM\Id]
+    #[ORM\GeneratedValue]
+    #[ORM\Column(type: "integer")]
+    private ?int $id = null;
+
     #[ORM\Column(length: 255)]
     private ?string $name = null;
 
@@ -33,35 +37,36 @@ class Peoples
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $photo_pro_url = null;
 
-    public function toJson($people): Array
+    public function toJson(): Array
     {
         return [
-            "name" => $people->getName(),
-            "firstname" => $people->getFirstname(),
-            "job" => $people->getJob(),
-            "equip" => $people->getEquip(),
-            "agency" => $people->getAgency(),
-            "photo_pro_url" => $people->getPhoto($people, "pro", $people->getPhotoProUrl()),
-            "photo_fun_url" => $people->getPhoto($people, "fun", $people->getPhotoFunUrl())
+            "id" => $this->getId(),
+            "name" => $this->getName(),
+            "firstname" => $this->getFirstname(),
+            "job" => $this->getJob(),
+            "equip" => $this->getEquip(),
+            "agency" => $this->getAgency(),
+            "photo_pro_url" => $this->getPhoto("pro", $this->getPhotoProUrl()),
+            "photo_fun_url" => $this->getPhoto("fun", $this->getPhotoFunUrl())
         ];
     }
 
-    public function getPhoto($people, $folder, $link)
+    public function getPhoto(string $folder, string $link)
     {
         if ($link == null)
             return null;
 
-        $path = "photo/" . $folder . "/" . $people->getName() . "_" . $people->getFirstname() . ".webp";
+        $path = "photo/" . $folder . "/" . $this->getName() . "_" . $this->getFirstname() . ".webp";
         $pathLink = "http://" . gethostbyname(gethostname()) . ":8080/" . $path;
 
         if (file_exists($path))
             return $pathLink;
 
-        $people->genPhoto($link, $path);
+        $this->genPhoto($link, $path);
         return $pathLink;
     }
 
-    public function genPhoto($link, $path) {
+    public function genPhoto(string $link, string $path) {
         ini_set("memory_limit", "-1");
         
         $percent = 0.2;
@@ -76,6 +81,11 @@ class Peoples
 
         imagedestroy($jpg);
         imagedestroy($webp);
+    }
+
+    public function getId(): ?int
+    {
+        return $this->id;
     }
 
     public function getName(): ?string

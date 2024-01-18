@@ -35,47 +35,6 @@ class PeoplesRepository extends ServiceEntityRepository
         ;
    }
 
-   public function findByKey($name, $firstname): ?Peoples
-   {
-       return $this->createQueryBuilder("c")
-           ->andWhere("c.name = :name and c.firstname = :firstname  ")
-           ->setParameter("name", $name)
-           ->setParameter("firstname", $firstname)
-           ->getQuery()
-           ->getOneOrNullResult()
-       ;
-   }
-
-   public function findJobs(): Array
-   {
-        return $this->createQueryBuilder("c")
-            ->select("c.job")
-            ->distinct()
-            ->getQuery()
-            ->getResult()
-        ;
-   }
-
-    public function findEquips(): ?Peoples
-    {
-        return $this->createQueryBuilder("c")
-            ->select("c.equip")
-            ->distinct()
-            ->getQuery()
-            ->getResult()
-        ;
-    }
-
-    public function findAgencies(): ?Peoples
-    {
-        return $this->createQueryBuilder("c")
-            ->select("c.agency")
-            ->distinct()
-            ->getQuery()
-            ->getResult()
-        ;
-    }
-
 //    /**
 //     * @return Peoples[] Returns an array of Peoples objects
 //     */

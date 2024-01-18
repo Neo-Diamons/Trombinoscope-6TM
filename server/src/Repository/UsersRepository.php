@@ -22,7 +22,7 @@ class UsersRepository extends ServiceEntityRepository
     }
 
    /**
-    * @return Users[] Returns an array of Users objects
+    * @return User Returns an Users objects
     */
 
     public function findOneByName($value): ?Users
@@ -35,6 +35,11 @@ class UsersRepository extends ServiceEntityRepository
         ;
     }
 
+
+//    /**
+//    * @return Users[] Returns an array of Users objects
+//    */
+//
 //    public function findByExampleField($value): array
 //    {
 //        return $this->createQueryBuilder("u")

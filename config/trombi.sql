@@ -2,6 +2,7 @@ CREATE DATABASE trombiDb;
 CREATE SCHEMA IF NOT EXISTS trombiDb;
 
 CREATE TABLE trombiDb.peoples (
+    id SERIAL NOT NULL,
     name VARCHAR(255) NOT NULL,
     firstname VARCHAR(255) NOT NULL,
     job VARCHAR(255) NOT NULL,
@@ -9,7 +10,7 @@ CREATE TABLE trombiDb.peoples (
     agency VARCHAR(255) NOT NULL,
     photo_fun_url VARCHAR(255),
     photo_pro_url VARCHAR(255),
-    PRIMARY KEY (name, firstname)
+    PRIMARY KEY (id)
 );
 
 INSERT INTO trombiDb.peoples (name, firstname, job, equip, agency, photo_pro_url, photo_fun_url)
@@ -111,9 +112,10 @@ VALUES
 ('TAILLAND ', 'Gaelle', 'Cheffe de projet', 'Team Dev', 'Rennes', NULL, NULL);
 
 CREATE TABLE trombiDb.users (
+    id SERIAL NOT NULL,
     username VARCHAR(255) NOT NULL,
     password VARCHAR(255) NOT NULL,
-    PRIMARY KEY (username)
+    PRIMARY KEY (id)
 );
 
 INSERT INTO trombiDb.users (username, password)

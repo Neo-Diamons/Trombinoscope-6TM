@@ -12,17 +12,22 @@ use Doctrine\ORM\Mapping as ORM;
 class Users
 {
     #[ORM\Id]
+    #[ORM\GeneratedValue]
+    #[ORM\Column(type: "integer")]
+    private ?int $id = null;
+
     #[ORM\Column(length: 255)]
     private ?string $username = null;
 
     #[ORM\Column(length: 255)]
     private ?string $password = null;
 
-    public function toJson($user): Array
+    public function toJson(): Array
     {
         return [
-            "username" => $user->getUsername(),
-            "password" => $user->getPassword()
+            "id" => $this->getId(),
+            "username" => $this->getUsername(),
+            "password" => $this->getPassword()
         ];
     }
 

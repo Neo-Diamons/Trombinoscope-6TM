@@ -6,7 +6,6 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Routing\Annotation\Route;
 
-use App\Entity\Peoples;
 use App\Repository\PeoplesRepository;
 
 use Doctrine\ORM\EntityManagerInterface;
@@ -14,104 +13,63 @@ use Symfony\Component\HttpFoundation\Request;
 
 class PeoplesController extends AbstractController
 {
-    #[Route("/api/v1/peoples", name: "app_people")]
-    public function index(PeoplesRepository $peoplesRepository): JsonResponse
+    #[Route("/api/peoples", name: "peoples", methods: ["GET"])]
+    public function showAll(PeoplesRepository $peoplesRepository): JsonResponse
     {
         set_time_limit(3600);
 
         $peoples = $peoplesRepository->findAll();
         $peoples = array_map(function($people) {
-            return $people->toJson($people);
+            return $people->toJson();
         }, $peoples);
         
-        return $this->json($peoples);
+        return new JsonResponse($peoples);
     }
 
-    #[Route("/api/v1/people", name: "people_show")]
-    public function show(PeoplesRepository $peoplesRepository, Request $request): JsonResponse
+    #[Route("/api/people/{id}", name: "people", methods: ["GET"])]
+    public function index(PeoplesRepository $peoplesRepository, int $id): JsonResponse
     {
-        if ($request->get("name") == null || $request->get("firstname") == null)
-            return $this->json([
-                "error" => "name or firstname is null"
-            ], 400);
-
-        $people = $peoplesRepository->findByKey($request->get("name"), $request->get("firstname"));
+        $people = $peoplesRepository->findOneById($id);
         if ($people == null)
-            return $this->json([
-                "error" => "user not found"
+            return new JsonResponse([
+                "error" => "id not found"
             ], 404);
 
-        $people = $people->toJson($people);
-
-        return $this->json($people);
+        return new JsonResponse($people->toJson());
     }
 
-    #[Route("/api/v1/people/update/job", name: "people_update_job")]
-    public function updateJob(PeoplesRepository $peoplesRepository, Request $request, EntityManagerInterface $entityManager): JsonResponse
+    #[Route("/api/people/{id}", name: "people_update", methods: ["PATCH"])]
+    public function update(PeoplesRepository $peoplesRepository, EntityManagerInterface $entityManager, Request $request, int $id): JsonResponse
     {
-        if ($request->get("name") == null || $request->get("firstname") == null || $request->get("job") == null)
-            return $this->json([
-                "error" => "name, firstname or job is null"
+        if ($request->get("job") == null
+            && $request->get("equip") == null
+            && $request->get("agency") == null
+            && $request->get("photo_fun_url") == null
+            && $request->get("photo_pro_url") == null)
+            return new JsonResponse([
+                "error" => "job, equip, agency, photo_fun_url and photo_pro_url is null"
             ], 400);
 
-        $people = $peoplesRepository->findByKey($request->get("name"), $request->get("firstname"));
+        $people = $peoplesRepository->findOneById($id);
         if ($people == null)
-            return $this->json([
-                "error" => "user not found"
+            return new JsonResponse([
+                "error" => "id not found"
             ], 404);
 
-        $people->setJob($request->get("job"));
+        if ($request->get("job"))
+            $people->setJob($request->get("job"));
+        if ($request->get("equip"))
+            $people->setEquip($request->get("equip"));
+        if ($request->get("agency"))
+            $people->setAgency($request->get("agency"));
+        if ($request->get("photo_fun_url"))
+            $people->setPhotoFunUrl($request->get("photo_fun_url"));
+        if ($request->get("photo_pro_url"))
+            $people->setPhotoProUrl($request->get("photo_pro_url"));
+
         $entityManager->persist($people);
         $entityManager->flush();
 
-        $people = $people->toJson($people);
-
-        return $this->json($people);
-    }
-
-    #[Route("/api/v1/people/update/equip", name: "people_update_equip")]
-    public function updateEquip(PeoplesRepository $peoplesRepository, Request $request, EntityManagerInterface $entityManager): JsonResponse
-    {
-        if ($request->get("name") == null || $request->get("firstname") == null || $request->get("equip") == null)
-            return $this->json([
-                "error" => "name, firstname or equip is null"
-            ], 400);
-
-        $people = $peoplesRepository->findByKey($request->get("name"), $request->get("firstname"));
-        if ($people == null)
-            return $this->json([
-                "error" => "user not found"
-            ], 404);
-
-        $people->setEquip($request->get("equip"));
-        $entityManager->persist($people);
-        $entityManager->flush();
-
-        $people = $people->toJson($people);
-
-        return $this->json($people);
-    }
-
-    #[Route("/api/v1/people/update/agency", name: "people_update_agency")]
-    public function updateAgency(PeoplesRepository $peoplesRepository, Request $request, EntityManagerInterface $entityManager): JsonResponse
-    {
-        if ($request->get("name") == null || $request->get("firstname") == null || $request->get("agency") == null)
-            return $this->json([
-                "error" => "name, firstname or agency is null"
-            ], 400);
-
-        $people = $peoplesRepository->findByKey($request->get("name"), $request->get("firstname"));
-        if ($people == null)
-            return $this->json([
-                "error" => "user not found"
-            ], 404);
-
-        $people->setAgency($request->get("agency"));
-        $entityManager->persist($people);
-        $entityManager->flush();
-
-        $people = $people->toJson($people);
-
-        return $this->json($people);
+        return new JsonResponse($people->toJson());
     }
 }
