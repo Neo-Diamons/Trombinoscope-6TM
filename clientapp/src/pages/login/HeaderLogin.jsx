@@ -1,6 +1,5 @@
 import React from 'react';
 import { Link } from 'react-router-dom'; // Import Link from react-router-dom
-import '../../components/Header.css';
 import Stack from '@mui/material/Stack';
 import Button from '@mui/material/Button';
 import Home from '../Home.jsx';
