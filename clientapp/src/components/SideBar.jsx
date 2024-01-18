@@ -131,15 +131,15 @@ function SideBar({ allTeams, setFilteredTeams }) {
 
   return (
     <div className="
-      w-[30vw] flex justify-center
+      w-[20vw] flex justify-center p-l-[10]
     ">
       <div className="
-        fixed h-[70vh] w-[20vw] mt-[8.5vh] mr-[1vw]
+        fixed h-[70vh] w-[20vw] mt-[1vh] mr-[1vw]
         bg-backgroundShadow
         rounded-[8px]
       "></div>
       <div className="
-        fixed mt-[7.5vh]
+        fixed
         h-[70vh] w-[20vw] p-[56px]
         bg-backgroundLight
         rounded-[8px]
