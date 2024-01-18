@@ -56,7 +56,6 @@ function Admin() {
       .then((res) => res.json())
       .then((data) => {
         setAllTeams(data);
-        console.log(data);
       })
       .catch((err) => console.log(err));
   }, []);
@@ -69,7 +68,7 @@ function Admin() {
     }
   }, [selectedPerson]);
 
-  const [filteredTeams, setFilteredTeams] = useState(allTeams);
+  const [_, setFilteredTeams] = useState(allTeams);
 
   useEffect(() => {
     setFilteredTeams(allTeams);
@@ -90,16 +89,15 @@ function Admin() {
         <div className="bg-white absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 p-5 rounded-xl">
           <h1 className="text-2xl font-bold mb-10 text-center my-5">Voulez-vous vraiment supprimer {selectedPerson && selectedPerson.firstname} {selectedPerson && selectedPerson.name} ?</h1>
           <div className="flex justify-between">
-            <Fab
-              variant="extended"
-              size="small"
-              sx={{
-                color: 'white',
-                backgroundColor: 'red',
-                '&:hover': {
-                  backgroundColor: '#b30000',
-                },
+            <button className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded-[8px]"
+              onClick={() => {
+                setDeleteModal(false);
+                setSelectedPerson(null);
               }}
+            >
+              Annuler
+            </button>
+            <button className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded-[8px]"
               onClick={() => {
                 deletePerson(selectedPerson.id);
                 setDeleteModal(false);
@@ -107,24 +105,7 @@ function Admin() {
               }}
             >
               Supprimer
-            </Fab>
-            <Fab
-              variant="extended"
-              size="small"
-              sx={{
-                color: 'black',
-                backgroundColor: '#D0FFE9',
-                '&:hover': {
-                  backgroundColor: '#b3ffd5',
-                },
-              }}
-              onClick={() => {
-                setDeleteModal(false);
-                setSelectedPerson(null);
-              }}
-            >
-              Annuler
-            </Fab>
+            </button>
           </div>
         </div>
       </Modal>
@@ -189,17 +170,8 @@ function Admin() {
               onChange={(e) => setSelectedPerson({ ...selectedPerson, photo_fun_url: e.target.value })}
             />
           </div>
-          <div className="flex justify-between">
-            <Fab
-              variant="extended"
-              size="small"
-              sx={{
-                color: 'white',
-                backgroundColor: 'red',
-                '&:hover': {
-                  backgroundColor: '#b30000',
-                },
-              }}
+          <div className="flex justify-between pt-[20px]">
+            <button className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded-[8px]"
               onClick={() => {
                 editPerson(selectedPerson.id, selectedPerson);
                 setEditModal(false);
@@ -207,24 +179,15 @@ function Admin() {
               }}
             >
               Modifier
-            </Fab>
-            <Fab
-              variant="extended"
-              size="small"
-              sx={{
-                color: 'black',
-                backgroundColor: '#D0FFE9',
-                '&:hover': {
-                  backgroundColor: '#b3ffd5',
-                },
-              }}
+            </button>
+            <button className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded-[8px]"
               onClick={() => {
                 setEditModal(false);
                 setSelectedPerson(null);
               }}
             >
               Annuler
-            </Fab>
+            </button>
           </div>
         </div>
       </Modal>
@@ -235,7 +198,7 @@ function Admin() {
           {allTeams.map((person) => (
             <ListItem
               className="rounded-[8px] my-5 justify-between"
-              key={person.photo_pro_url}
+              key={person.id}
               sx={{
                 backgroundColor: "rgba(255, 255, 255, 0.9)",
               }}
@@ -244,40 +207,22 @@ function Admin() {
                 <Avatar alt={person.firstname} src={person.photo_pro_url} />
               </ListItemAvatar>
               <ListItemText primary={`${person.firstname} ${person.name}`} secondary={`${person.job}`} />
-              <Fab
-                variant="extended"
-                size="small"
-                sx={{
-                  color: 'black',
-                  backgroundColor: '#D0FFE9',
-                  '&:hover': {
-                    backgroundColor: '#b3ffd5',
-                  },
-                }}
+              <button className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded-l-[8px]"
                 onClick={() => {
                   setSelectedPerson(person);
                   setEditModal(true);
                 }}
               >
                 Modifier
-              </Fab>
-              <Fab
-                variant="extended"
-                size="small"
-                sx={{
-                  color: 'white',
-                  backgroundColor: 'red',
-                  '&:hover': {
-                    backgroundColor: '#b30000',
-                  },
-                }}
+              </button>
+              <button className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded-r-[8px]"
                 onClick={() => {
                   setSelectedPerson(person);
                   setDeleteModal(true);
-                }}
+                }}Fab
               >
                 Supprimer
-              </Fab>
+              </button>
             </ListItem>
           ))}
         </List>

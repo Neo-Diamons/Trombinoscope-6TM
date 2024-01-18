@@ -20,10 +20,10 @@ function Login() {
       body: JSON.stringify({ username, password }),
     })
       .then((res) => res.json())
-      .then((data) => {
+      .then(() => {
         navigate('/admin');
       })
-      .catch((err) => console.log(JSON.stringify({ username, password })));
+      .catch((err) => console.log(err));
   };
 
   return (

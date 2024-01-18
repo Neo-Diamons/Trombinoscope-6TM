@@ -29,8 +29,8 @@ function Header() {
           size="small"
           sx={{
             backgroundColor: 'transparent',
-            color: '#D0FFE9',
-            borderColor: '#D0FFE9',
+            color: '#FFF',
+            borderColor: '#FFF',
             position: 'absolute',
             right: 25,
             top: 25
