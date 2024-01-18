@@ -1,0 +1,28 @@
+/* Chat.css */
+.chat-container {
+    max-height: 300px; /* Set a max height for your chat container */
+    overflow-y: auto;
+    scrollbar-width: thin;
+    scrollbar-color: #4a4a4a #282828; /* Adjust colors as needed */
+  
+    &::-webkit-scrollbar {
+      width: 8px;
+    }
+  
+    &::-webkit-scrollbar-thumb {
+      background-color: #4a4a4a;
+    }
+  
+    &::-webkit-scrollbar-track {
+      background-color: #282828;
+    }
+  }
+  
+  /* Add any additional styling for your chat messages */
+  .message {
+    margin-bottom: 10px;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+  }
+  
