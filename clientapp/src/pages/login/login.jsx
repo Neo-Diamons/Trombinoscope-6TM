@@ -2,15 +2,17 @@ import React, { useState } from 'react';
 import Header from './HeaderLogin';
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
+import { useNavigate } from 'react-router-dom';
 
 const port = process.env.PORT || 8080;
 
 function Login() {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+  const navigate = useNavigate();
 
   const handleLogin = () => {
-    fetch(`http://localhost:${port}/api/user/login`, {
+    fetch(`http://localhost:${port}/api/login`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -19,9 +21,9 @@ function Login() {
     })
       .then((res) => res.json())
       .then((data) => {
-        console.log(data);
+        navigate('/admin');
       })
-      .catch((err) => console.log(err));
+      .catch((err) => console.log(JSON.stringify({ username, password })));
   };
 
   return (
@@ -53,7 +55,7 @@ function Login() {
               <TextField
                 className="w-full"
                 id="outlined-basic"
-                placeholder="Nom d'utilisateur"
+                placeholder="Mot de passe"
                 variant="outlined"
                 value={password}
                 type="password"

@@ -41,11 +41,17 @@ class PeoplesController extends AbstractController
     #[Route("/api/people/{id}", name: "people_update", methods: ["PATCH"])]
     public function update(PeoplesRepository $peoplesRepository, EntityManagerInterface $entityManager, Request $request, int $id): JsonResponse
     {
-        if ($request->get("job") == null
-            && $request->get("equip") == null
-            && $request->get("agency") == null
-            && $request->get("photo_fun_url") == null
-            && $request->get("photo_pro_url") == null)
+        $parameters = json_decode($request->getContent(), true);
+
+        if ($parameters == null)
+            return new JsonResponse([
+                "error" => "parameters is null"
+            ], 400);
+        if ($parameters["job"] == null
+            && $parameters["equip"] == null
+            && $parameters["agency"] == null
+            && $parameters["photo_fun_url"] == null
+            && $parameters["photo_pro_url"] == null)
             return new JsonResponse([
                 "error" => "job, equip, agency, photo_fun_url and photo_pro_url is null"
             ], 400);
@@ -56,16 +62,16 @@ class PeoplesController extends AbstractController
                 "error" => "id not found"
             ], 404);
 
-        if ($request->get("job"))
-            $people->setJob($request->get("job"));
-        if ($request->get("equip"))
-            $people->setEquip($request->get("equip"));
-        if ($request->get("agency"))
-            $people->setAgency($request->get("agency"));
-        if ($request->get("photo_fun_url"))
-            $people->setPhotoFunUrl($request->get("photo_fun_url"));
-        if ($request->get("photo_pro_url"))
-            $people->setPhotoProUrl($request->get("photo_pro_url"));
+        if ($parameters["job"] != null)
+            $people->setJob($parameters["job"]);
+        if ($parameters["equip"] != null)
+            $people->setEquip($parameters["equip"]);
+        if ($parameters["agency"] != null)
+            $people->setAgency($parameters["agency"]);
+        if ($parameters["photo_fun_url"] != null)
+            $people->setPhotoFunUrl($parameters["photo_fun_url"]);
+        if ($parameters["photo_pro_url"] != null)
+            $people->setPhotoProUrl($parameters["photo_pro_url"]);
 
         $entityManager->persist($people);
         $entityManager->flush();

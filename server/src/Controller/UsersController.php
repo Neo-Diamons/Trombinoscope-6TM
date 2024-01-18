@@ -40,40 +40,52 @@ class UsersController extends AbstractController
     #[Route("/api/user/create", name: "user_create", methods: ["POST"])]
     public function create(UsersRepository $UsersRepository, Request $request, EntityManagerInterface $entityManager): JsonResponse
     {
-        if ($request->get("username") == null || $request->get("password") == null)
+        $parameters = json_decode($request->getContent(), true);
+        if ($parameters == null)
+            return new JsonResponse([
+                "error" => "parameters is null"
+            ], 400);
+
+        if ($parameters["username"] == null || $parameters["password"] == null)
             return new JsonResponse([
                 "error" => "username or password is null"
             ], 400);
-        if ($UsersRepository->findOneByName($request->get("username")) != null)
+        if ($UsersRepository->findOneByName($parameters["username"]) != null)
             return new JsonResponse([
                 "error" => "user already exist"
             ], 409);
 
         $user = new Users();
-        $user->setUsername($request->get("username"));
+        $user->setUsername($parameters["username"]);
         $user->setPassword(password_hash($request->get("password"), PASSWORD_DEFAULT));
 
         $entityManager->persist($user);
         $entityManager->flush();
 
-        $user = $UsersRepository->findOneByName($request->get("username"));
+        $user = $UsersRepository->findOneByName($parameters["username"]);
         return new JsonResponse($user->toJson());
     }
 
     #[Route("/api/login", name: "login", methods: ["POST"])]
     public function login(UsersRepository $UsersRepository, Request $request): JsonResponse
     {
-        if ($request->get("username") == null || $request->get("password") == null)
+        $parameters = json_decode($request->getContent(), true);
+        if ($parameters == null)
+            return new JsonResponse([
+                "error" => "parameters is null"
+            ], 400);
+
+        if ($parameters["username"] == null || $parameters["password"] == null)
             return new JsonResponse([
                 "error" => "username or password is null"
             ], 400);
-        $user = $UsersRepository->findOneByName($request->get("username"));
+        $user = $UsersRepository->findOneByName($parameters["username"]);
         if ($user == null)
             return new JsonResponse([
                 "error" => "No user found"
             ], 404);
 
-        if (!password_verify($request->get("password"), $user->getPassword()))
+        if (!password_verify($parameters["password"], $user->getPassword()))
             return new JsonResponse([
                 "error" => "password is incorrect"
             ], 401);
