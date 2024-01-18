@@ -28,70 +28,68 @@ function Login() {
     <>
       <Header />
 
-      <div className="flex flex-col items-center justify-center">
-        <h1 className="text-4xl font-bold mb-10 text-center mt-28 text-white">Barbara</h1>
-
-        <div className="flex flex-col items-center justify-center">
-
-          <TextField
-            className="w-full"
-            id="outlined-basic"
-            label="Username"
-            variant="outlined"
-            value={username}
-            onChange={(e) => setUsername(e.target.value)}
-            sx={{
-              '& .MuiInputBase-root': { color: '#D0FFE9', backgroundColor: '#2D2D2D' },
-              '& label.Mui-focused': { color: '#D0FFE9' },
-              '& label': { color: '#D0FFE9' },
-              '& .MuiOutlinedInput-root': {
-                '& fieldset': { borderColor: '#D0FFE9' },
-                '&:hover fieldset': { borderColor: '#D0FFE9' },
-                '&.Mui-focused fieldset': { borderColor: '#D0FFE9' }
-              },
-              margin: '8px',
-            }}
-          />
-
-          <TextField
-            className="w-full mt-5"
-            id="outlined-basic"
-            label="Password"
-            variant="outlined"
-            value={password}
-            type="password"
-            onChange={(e) => setPassword(e.target.value)}
-            sx={{
-              '& .MuiInputBase-root': { color: '#D0FFE9', backgroundColor: '#2D2D2D' },
-              '& label.Mui-focused': { color: '#D0FFE9' },
-              '& label': { color: '#D0FFE9' },
-              '& .MuiOutlinedInput-root': {
-                '& fieldset': { borderColor: '#D0FFE9' },
-                '&:hover fieldset': { borderColor: '#D0FFE9' },
-                '&.Mui-focused fieldset': { borderColor: '#D0FFE9' }
-              },
-              margin: '8px',
-              marginBottom: '20px',
-            }}
-          />
-
-          <Button
-            className="mt-5 w-full"
-            variant="contained"
-            onClick={handleLogin}
-            sx={{
-              backgroundColor: '#4CAF50',
-              color: 'white',
-              '&:hover': {
-                backgroundColor: '#4CAF50',
-                opacity: 0.8,
-              },
-            }}
-          >
-            Login
-          </Button>
+      <div className="flex w-screen h-screen flex-col items-center justify-center">
+        <div className="relative w-[290px] h-[330px] flex flex-col items-center justify-center rounded-lg px-6 py-12 mt-8 gap-[50px] bg-backgroundShadow">
+          <div className="absolute flex flex-col items-center justify-center border-4 border-[#606060] rounded-lg px-6 py-12 gap-[50px] bg-[#0c1414] -mt-8 -mr-8">
+            <div className="flex flex-col gap-4">
+              <TextField
+                className="w-full"
+                id="outlined-basic"
+                placeholder="Nom d'utilisateur"
+                variant="outlined"
+                value={username}
+                onChange={(e) => setUsername(e.target.value)}
+                sx={{
+                  '& .MuiInputBase-root': { color: '#0c1414', backgroundColor: 'white', borderRadius: '20px' },
+                  '& label.Mui-focused': { color: 'transparent' },
+                  '& label.Mui-emptyInputBase': { color: '#0c1414' },
+                  '& .MuiOutlinedInput-root': {
+                    '& fieldset': { borderColor: '#0c1414' },
+                    '&:hover fieldset': { borderColor: '#0c1414' },
+                    '&.Mui-focused fieldset': { borderColor: 'white' }
+                  },
+                }}
+              />
+              <TextField
+                className="w-full"
+                id="outlined-basic"
+                placeholder="Nom d'utilisateur"
+                variant="outlined"
+                value={password}
+                type="password"
+                onChange={(e) => setPassword(e.target.value)}
+                sx={{
+                  '& .MuiInputBase-root': { color: '#0c1414', backgroundColor: 'white', borderRadius: '20px' },
+                  '& label.Mui-focused': { color: 'transparent' },
+                  '& label': { color: '#0c1414' },
+                  '& .MuiOutlinedInput-root': {
+                    '& fieldset': { borderColor: '#0c1414' },
+                    '&:hover fieldset': { borderColor: '#0c1414' },
+                    '&.Mui-focused fieldset': { borderColor: 'white' }
+                  },
+                }}
+              />
+            </div>
+            <Button
+              fullWidth
+              variant="contained"
+              onClick={handleLogin}
+              sx={{
+                borderRadius: '20px',
+                backgroundColor: '#D0FFE9',
+                color: 'white',
+                height: '56px', // adjust this value to match the TextField's height
+                '&:hover': {
+                  backgroundColor: '#D0FFE9',
+                  opacity: 0.8,
+                },
+              }}
+            >
+              <p className="text-black text-lg font-bold">Se connecter</p>
+            </Button>
+          </div >
         </div>
-      </div>
+      </div >
     </>
   );
 }
