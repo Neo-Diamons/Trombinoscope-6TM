@@ -32,7 +32,7 @@ function Header() {
             color: '#D0FFE9',
             borderColor: '#D0FFE9',
             position: 'absolute',
-            right: 40,
+            right: 25,
             top: 25
           }}
         >Retour</Button>
