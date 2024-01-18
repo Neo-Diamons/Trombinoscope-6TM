@@ -5,6 +5,9 @@ namespace App\Entity;
 use App\Repository\UsersRepository;
 use Doctrine\ORM\Mapping as ORM;
 
+/**
+ * @ORM\Table(name="users", schema="trombiDB")
+ */
 #[ORM\Entity(repositoryClass: UsersRepository::class)]
 class Users
 {
@@ -18,8 +21,8 @@ class Users
     public function toJson($user): Array
     {
         return [
-            'username' => $user->getUsername(),
-            'password' => $user->getPassword()
+            "username" => $user->getUsername(),
+            "password" => $user->getPassword()
         ];
     }
 

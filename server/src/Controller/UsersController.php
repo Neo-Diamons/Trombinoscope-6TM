@@ -14,7 +14,7 @@ use Symfony\Component\HttpFoundation\Request;
 
 class UsersController extends AbstractController
 {
-    #[Route('/api/v1/users', name: 'app_users')]
+    #[Route("/api/v1/users", name: "app_users")]
     public function index(UsersRepository $UsersRepository): JsonResponse
     {
         $users = $UsersRepository->findAll();
@@ -26,17 +26,17 @@ class UsersController extends AbstractController
         return $this->json($users);
     }
 
-    #[Route('/api/v1/user', name: 'user_show')]
+    #[Route("/api/v1/user", name: "user_show")]
     public function show(UsersRepository $UsersRepository, Request $request): JsonResponse
     {
         if ($user == null)
             return $this->json([
-                'error' => 'username not found'
+                "error" => "username not found"
             ], 404);
-        $user = $UsersRepository->findOneByName($request->get('username'));
+        $user = $UsersRepository->findOneByName($request->get("username"));
         if ($user == null)
             return $this->json([
-                'error' => 'username not found'
+                "error" => "username not found"
             ], 404);
 
         $user = $user->toJson($user);
@@ -44,52 +44,52 @@ class UsersController extends AbstractController
         return $this->json($user);
     }
 
-    #[Route('/api/v1/user/create', name: 'user_create')]
+    #[Route("/api/v1/user/create", name: "user_create")]
     public function create(UsersRepository $UsersRepository, Request $request, EntityManagerInterface $entityManager): JsonResponse
     {
-        if ($request->get('username') == null || $request->get('password') == null)
+        if ($request->get("username") == null || $request->get("password") == null)
             return $this->json([
-                'error' => 'username or password is null'
+                "error" => "username or password is null"
             ], 400);
-        if ($UsersRepository->findOneByName($request->get('username')) != null)
+        if ($UsersRepository->findOneByName($request->get("username")) != null)
             return $this->json([
-                'error' => 'username already exist'
+                "error" => "username already exist"
             ], 409);
 
         $user = new Users();
-        $user->setUsername($request->get('username'));
-        $user->setPassword(password_hash($request->get('password'), PASSWORD_DEFAULT));
+        $user->setUsername($request->get("username"));
+        $user->setPassword(password_hash($request->get("password"), PASSWORD_DEFAULT));
 
         $entityManager->persist($user);
         $entityManager->flush();
 
-        $user = $UsersRepository->findOneByName($request->get('username'));
+        $user = $UsersRepository->findOneByName($request->get("username"));
         $user = $user->toJson($user);
 
         return $this->json($user);
     }
 
-    #[Route('/api/v1/user/login', name: 'user_login')]
+    #[Route("/api/v1/user/login", name: "user_login")]
     public function login(UsersRepository $UsersRepository, Request $request): JsonResponse
     {
-        if ($request->get('username') == null || $request->get('password') == null)
+        if ($request->get("username") == null || $request->get("password") == null)
             return $this->json([
-                'error' => 'username or password is null'
+                "error" => "username or password is null"
             ], 400);
-        if ($UsersRepository->findOneByName($request->get('username')) == null)
+        if ($UsersRepository->findOneByName($request->get("username")) == null)
             return $this->json([
-                'error' => 'username not found'
+                "error" => "username not found"
             ], 404);
 
-        $user = $UsersRepository->findOneByName($request->get('username'));
+        $user = $UsersRepository->findOneByName($request->get("username"));
         if ($user == null)
             return $this->json([
-                'error' => 'username not found'
+                "error" => "username not found"
             ], 404);
 
-        if (!password_verify($request->get('password'), $user->getPassword()))
+        if (!password_verify($request->get("password"), $user->getPassword()))
             return $this->json([
-                'error' => 'password is incorrect'
+                "error" => "password is incorrect"
             ], 401);
 
         $user = $user->toJson($user);

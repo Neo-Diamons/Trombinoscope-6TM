@@ -48,21 +48,6 @@ peoples_update_agency:
     controller: App\Controller\PeoplesController::updateAgency
     methods: [PATCH]
 
-jobs:
-    path: /api/v1/jobs
-    controller: App\Controller\PeoplesController::jobs
-    methods: [GET]
-
-equips:
-    path: /api/v1/equips
-    controller: App\Controller\PeoplesController::equips
-    methods: [GET]
-
-agencies:
-    path: /api/v1/agencies
-    controller: App\Controller\PeoplesController::agencies
-    methods: [GET]
-
 users:
     path: /api/v1/users
     controller: App\Controller\UsersController::index

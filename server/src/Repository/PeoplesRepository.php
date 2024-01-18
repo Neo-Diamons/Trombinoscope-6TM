@@ -27,9 +27,9 @@ class PeoplesRepository extends ServiceEntityRepository
 
    public function findOneByName($name): ?Peoples
    {
-        return $this->createQueryBuilder('c')
-            ->andWhere('c.name = :name')
-            ->setParameter('name', $name)
+        return $this->createQueryBuilder("c")
+            ->andWhere("c.name = :name")
+            ->setParameter("name", $name)
             ->getQuery()
             ->getOneOrNullResult()
         ;
@@ -37,10 +37,10 @@ class PeoplesRepository extends ServiceEntityRepository
 
    public function findByKey($name, $firstname): ?Peoples
    {
-       return $this->createQueryBuilder('c')
-           ->andWhere('c.name = :name and c.firstname = :firstname  ')
-           ->setParameter('name', $name)
-           ->setParameter('firstname', $firstname)
+       return $this->createQueryBuilder("c")
+           ->andWhere("c.name = :name and c.firstname = :firstname  ")
+           ->setParameter("name", $name)
+           ->setParameter("firstname", $firstname)
            ->getQuery()
            ->getOneOrNullResult()
        ;
@@ -48,8 +48,8 @@ class PeoplesRepository extends ServiceEntityRepository
 
    public function findJobs(): Array
    {
-        return $this->createQueryBuilder('c')
-            ->select('c.job')
+        return $this->createQueryBuilder("c")
+            ->select("c.job")
             ->distinct()
             ->getQuery()
             ->getResult()
@@ -58,8 +58,8 @@ class PeoplesRepository extends ServiceEntityRepository
 
     public function findEquips(): ?Peoples
     {
-        return $this->createQueryBuilder('c')
-            ->select('c.equip')
+        return $this->createQueryBuilder("c")
+            ->select("c.equip")
             ->distinct()
             ->getQuery()
             ->getResult()
@@ -68,8 +68,8 @@ class PeoplesRepository extends ServiceEntityRepository
 
     public function findAgencies(): ?Peoples
     {
-        return $this->createQueryBuilder('c')
-            ->select('c.agency')
+        return $this->createQueryBuilder("c")
+            ->select("c.agency")
             ->distinct()
             ->getQuery()
             ->getResult()
@@ -81,10 +81,10 @@ class PeoplesRepository extends ServiceEntityRepository
 //     */
 //    public function findByExampleField($value): array
 //    {
-//        return $this->createQueryBuilder('c')
-//            ->andWhere('c.exampleField = :val')
-//            ->setParameter('val', $value)
-//            ->orderBy('c.id', 'ASC')
+//        return $this->createQueryBuilder("c")
+//            ->andWhere("c.exampleField = :val")
+//            ->setParameter("val", $value)
+//            ->orderBy("c.id", "ASC")
 //            ->setMaxResults(10)
 //            ->getQuery()
 //            ->getResult()
@@ -93,9 +93,9 @@ class PeoplesRepository extends ServiceEntityRepository
 
 //    public function findOneBySomeField($value): ?Peoples
 //    {
-//        return $this->createQueryBuilder('c')
-//            ->andWhere('c.exampleField = :val')
-//            ->setParameter('val', $value)
+//        return $this->createQueryBuilder("c")
+//            ->andWhere("c.exampleField = :val")
+//            ->setParameter("val", $value)
 //            ->getQuery()
 //            ->getOneOrNullResult()
 //        ;

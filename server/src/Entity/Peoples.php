@@ -6,7 +6,7 @@ use App\Repository\PeoplesRepository;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ORM\Table(name="users", schema="trombiDB")
+ * @ORM\Table(name="peoples", schema="trombiDB")
  */
 #[ORM\Entity(repositoryClass: PeoplesRepository::class)]
 class Peoples
@@ -36,13 +36,13 @@ class Peoples
     public function toJson($people): Array
     {
         return [
-            'name' => $people->getName(),
-            'firstname' => $people->getFirstname(),
-            'job' => $people->getJob(),
-            'equip' => $people->getEquip(),
-            'agency' => $people->getAgency(),
-            'photo_pro_url' => $people->getPhoto($people, "pro", $people->getPhotoProUrl()),
-            'photo_fun_url' => $people->getPhoto($people, "fun", $people->getPhotoFunUrl())
+            "name" => $people->getName(),
+            "firstname" => $people->getFirstname(),
+            "job" => $people->getJob(),
+            "equip" => $people->getEquip(),
+            "agency" => $people->getAgency(),
+            "photo_pro_url" => $people->getPhoto($people, "pro", $people->getPhotoProUrl()),
+            "photo_fun_url" => $people->getPhoto($people, "fun", $people->getPhotoFunUrl())
         ];
     }
 
@@ -62,7 +62,7 @@ class Peoples
     }
 
     public function genPhoto($link, $path) {
-        ini_set('memory_limit', '-1');
+        ini_set("memory_limit", "-1");
         
         $percent = 0.2;
 
